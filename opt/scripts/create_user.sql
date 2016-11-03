@@ -1,0 +1,1 @@
+CREATE USER docker WITH SUPERUSER PASSWORD 'docker';

@@ -6,4 +6,9 @@ It is based on the example from https://docs.docker.com/engine/examples/postgres
 
 It is work on progress and mostly for myself to learn more about Docker.
 
+## Building the Image:
+
+    docker build -t ubuntu_postgresql:latest .
+
+And then start it (instructions to follow)...
 

@@ -4,20 +4,13 @@ MAINTAINER nicc777@gmail.com
 RUN apt-get update
 RUN apt-get install -y postgresql postgresql-contrib
 
-RUN systemctl enable postgresql
-RUN systemctl stop postgresql
 
-USER postgres
+RUN mkdir /opt/scripts
+COPY opt/scripts/* /opt/scripts/
+RUN chmod 750 /opt/scripts/*.sh
+RUN chmod 644 /opt/scripts/*.sql
 
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/opt"]
 
-#RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
-#RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
-EXPOSE 5432
+CMD ["/opt/scripts/start_db.sh"]
 
-RUN systemctl start postgresql
-
-RUN psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && createdb -O docker docker
-
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
-
-#CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
