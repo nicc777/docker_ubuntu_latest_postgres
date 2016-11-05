@@ -8,6 +8,9 @@ RUN mkdir /opt/scripts
 COPY scripts/* /opt/scripts/
 RUN chmod 750 /opt/scripts/*.sh
 
+RUN mkdir /opt/backups
+VOLUME ['/opt/backups'] 
+
 EXPOSE 5432
 
 CMD ["sh", "/opt/scripts/start_db.sh"]

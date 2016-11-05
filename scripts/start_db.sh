@@ -17,6 +17,13 @@ else
     echo "PostgreSQL is ready for use [2]"
 fi
 
+if [ -e "/opt/backups/backup.sql" ]
+then
+    su -l postgres -c "psql -d docker -f /opt/backups/backup.sql"
+    echo "Backup Restored"
+else
+    echo "No backup found - starting with a clean DB"
+fi
 
 while [ 1 ]; do
     sleep 60
