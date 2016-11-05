@@ -2,9 +2,11 @@
 
 This repository contains a Dockerfile to attempt to always have an up-to-date method of building an image with the latest Ubuntu version and PostgreSQL database server from the official Ubuntu repository.
 
-It is based on the example from https://docs.docker.com/engine/examples/postgresql_service/
+I originally looked at the example from https://docs.docker.com/engine/examples/postgresql_service/ but I decided I wanted to try it from scratch myself. 
 
-It is work on progress and mostly for myself to learn more about Docker.
+It is work on progress and mostly for myself to learn more about Docker, however it is now in a usable state.
+
+The database data is NOT persisted and you have to ensure you make a backup of your data before you stop the instance if you would like to keep your data. I did this specifically for container re-use.
 
 ## Default Credentials
 
