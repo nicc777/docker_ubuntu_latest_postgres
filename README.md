@@ -6,9 +6,20 @@ It is based on the example from https://docs.docker.com/engine/examples/postgres
 
 It is work on progress and mostly for myself to learn more about Docker.
 
-## Building the Image:
+## Building the Image
+
+The build process can be started with the familiar:
 
     docker build -t ubuntu_postgresql:latest .
 
-And then start it (instructions to follow)...
+The latest updates for Ubuntu will be installed as well as PostgreSQL from the Ubuntu repo.
+
+## Start an image
+
+Starting the image is again very straight forward
+
+    docker run -p 127.0.0.1:5432:5432 -d -t ubuntu_postgresql:latest
+
+It will start the container and PostgreSQL which will now listen on localhost port 5432 - change this to suite your needs
+
 
