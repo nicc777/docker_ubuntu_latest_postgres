@@ -9,6 +9,7 @@ RUN mkdir /opt/scripts
 COPY opt/scripts/* /opt/scripts/
 RUN chmod 750 /opt/scripts/*.sh
 RUN chmod 644 /opt/scripts/*.sql
+RUN /opt/scripts/start_db.sh 
 
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/opt"]
 
