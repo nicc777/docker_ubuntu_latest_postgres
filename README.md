@@ -37,3 +37,31 @@ You can mount your local backups and the "run" command will automatically restor
 
     $ docker run -v /path_to_backups:/opt/backups -p 127.0.0.1:5432:5432 -d -t ubuntu_postgresql:latest
 
+If you use the backup file from the repo, you should be able to do something like the following:
+
+    $ psql -U docker -W -d docker -h 127.0.0.1 -p 5432
+    Password for user docker: 
+    psql (9.5.4, server 9.5.5)
+    SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+    Type "help" for help.
+    
+    docker=# \d
+                      List of relations
+     Schema |          Name          |   Type   | Owner  
+    --------+------------------------+----------+--------
+     public | test_table             | table    | docker
+     public | test_table_test_id_seq | sequence | docker
+    (2 rows)
+    
+    docker=# select * from test_table;
+     test_id | test_key | test_value 
+    ---------+----------+------------
+           1 | key_1    | Value 1
+           2 | key_2    | Value 2
+           3 | key_3    | Value 3
+    (3 rows)
+    
+    docker=# \q
+
+Note: The connection was from the host, so for this to work you would need to install or have access to the `psql` command.
+
