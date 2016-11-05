@@ -6,6 +6,10 @@ It is based on the example from https://docs.docker.com/engine/examples/postgres
 
 It is work on progress and mostly for myself to learn more about Docker.
 
+## Default Credentials
+
+The script `scripts/start_db.sh` will create a database `docker` with username `docker` and password `docker` - to change any of these, update the script before the initial build.
+
 ## Building the Image
 
 The build process can be started with the familiar:
