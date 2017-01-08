@@ -13,5 +13,8 @@ VOLUME ['/opt/backups']
 
 EXPOSE 5432
 
+ENV TZ=Africa/Johannesburg
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 CMD ["sh", "/opt/scripts/start_db.sh"]
 
