@@ -28,6 +28,50 @@ Starting the image is again very straight forward
 
 It will start the container and PostgreSQL which will now listen on localhost port 5432 - change this to suite your needs
 
+## Start an image using an external volume
+
+You can now mount an external volume as the data directory and by setting an environment variable, you can now tell the starter script to first initialize the data directory (will happen only once), and then start the database instance pointing to that data directory.
+
+This is especially useful in the following scenarios or use cases:
+
+* Customize the configuration, for example to set-up logging, replication etc.
+* Persist your database between instance restarts
+
+Assuming you have your data directory on your host at `$HOME/opt/databases/d1`, you can start the image by running:
+
+	$ docker run -v $HOME/opt/databases/d1:/opt/data -e "DATA_DIR=/opt/data" -p 127.0.0.1:5432:5432 -d -t ubuntu_postgresql:latest 
+
+The first time the command runs, it will create the files in the directory, so ensure it is empty before the first run.
+
+### Enabling logging
+
+After the first start, stop the running container.
+
+Now change into the data directory on your host and run the following:
+
+	$ mkdir logs
+	$ chmod 700 logs
+
+Next, edit `postgresql.conf`. You might want something like the following (I use this on my DEV instance):
+
+	log_destination = 'stderr'
+	logging_collector = on
+	log_directory = 'logs'
+	client_min_messages = debug1
+	log_min_messages = debug1
+	log_min_error_statement = warning
+	log_min_duration_statement = 1000
+	log_connections = on
+	log_disconnections = on
+	log_duration = on
+	log_hostname = on
+	log_line_prefix = 'timstamp=<%t> command_tag=<%i> remote_host=<%r> user=<%u> database=<%d> session=[id=<%c>  line=<%l>] transaction_id=<%x> '
+	log_statement = 'all' 
+
+Adjust to your own needs.
+
+Now start the instance again.
+
 ## Get a shell to the instance
 
 You can run the following commands to get a shell into the running instance:
